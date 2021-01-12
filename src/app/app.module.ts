@@ -15,12 +15,20 @@ import { LearnerListingComponent } from './pages/learner-listing/learner-listing
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { LoginComponent } from './pages/login/login.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { RegisterUserComponent } from './pages/register-user/register-user.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
-    LearnerListingComponent
+    LearnerListingComponent,
+    LoginComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +42,10 @@ import { MatSortModule } from '@angular/material/sort';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
