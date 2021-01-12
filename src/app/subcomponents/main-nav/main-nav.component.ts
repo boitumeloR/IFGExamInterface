@@ -16,12 +16,11 @@ export class MainNavComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
-  
-  loggedIn$: Observable<boolean>;
+  loggedIn$: Observable<boolean> = this.authService.isLoggedIn;
   constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.loggedIn$ = this.authService.isLoggedIn;
+    // init
   }
 
 }

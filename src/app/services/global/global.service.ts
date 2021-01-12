@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
 
-  server = 'https://localhost:00000';
+  server = 'https://localhost:00000/api';
   constructor() { }
 
   getServer() {

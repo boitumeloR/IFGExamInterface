@@ -1,0 +1,63 @@
+<div class="container">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Register</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                  <mat-horizontal-stepper linear #stepper >
+                    <mat-step [stepControl]="firstFormGroup" [editable] = "false">
+                      <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>Authentication Info</ng-template>
+                        <div class="controls">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Email Address</mat-label>
+                                <input type="email" matInput placeholder="Email Address" formControlName = "EmailAddress">
+                                <mat-hint>Your email address</mat-hint>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input type="password" matInput placeholder="Password" formControlName = "Password">
+                                <mat-hint>Your password</mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Confirm Password</mat-label>
+                                <input type="password" matInput placeholder="Confirm Password" formControlName = "ConfirmPassword">
+                                <mat-hint>Confirm your password</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="nextActions">
+                          <button mat-raised-button color = "primary" matStepperNext
+                          [disabled] = "firstFormGroup.valid ? false: true"
+                          >Next</button>
+                        </div>
+                      </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" label="Learner Information">
+                      <form [formGroup]="secondFormGroup">
+                        <mat-form-field>
+                          <mat-label>Address</mat-label>
+                          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                 required>
+                        </mat-form-field>
+                        <div>
+                          <button mat-button matStepperPrevious>Back</button>
+                          <button mat-button matStepperNext>Next</button>
+                        </div>
+                      </form>
+                    </mat-step>
+                    <!-- <mat-step>
+                      <ng-template matStepLabel>Done</ng-template>
+                      <p>You are now done.</p>
+                      <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                      </div>
+                    </mat-step> -->
+                  </mat-horizontal-stepper>
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+      </mat-card>
+</div>
