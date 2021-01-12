@@ -4,8 +4,8 @@
             <mat-card-title>Register</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                  <mat-horizontal-stepper linear #stepper [editable] = "false">
-                    <mat-step [stepControl]="firstFormGroup">
+                  <mat-horizontal-stepper linear #stepper >
+                    <mat-step [stepControl]="firstFormGroup" [editable] = "false">
                       <form [formGroup]="firstFormGroup">
                         <ng-template matStepLabel>Authentication Info</ng-template>
                         <div class="controls">
