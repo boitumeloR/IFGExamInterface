@@ -1,6 +1,6 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Session {
   EmailAddress: string;
@@ -9,7 +9,9 @@ export interface Session {
   SessionExpiry: Date;
   UserSecret: string;
   UserRoleID: number | null;
+  UserRoleName: string;
   CentreID: number | null;
+  Error: string | null;
 }
 
 @Injectable({
@@ -24,9 +26,9 @@ export class AuthService {
       'Content-Type': 'application/json'
     })
   };
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  get isLoggedIn() {
+  get isLoggedIn(): Observable<boolean> {
     const session = sessionStorage.getItem('session');
 
     if (session) {
@@ -36,5 +38,9 @@ export class AuthService {
     }
 
     return this.loggedIn.asObservable();
+  }
+
+  Login(server: string, loginObj: any): Observable<Session> {
+    return this.http.post<Session>(`${server}/Auth/Login`, loginObj, this.httpOptions);
   }
 }

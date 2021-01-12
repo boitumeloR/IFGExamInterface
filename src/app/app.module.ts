@@ -20,6 +20,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { RegisterUserComponent } from './pages/register-user/register-user.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -28,7 +34,8 @@ import { RegisterUserComponent } from './pages/register-user/register-user.compo
     MainNavComponent,
     LearnerListingComponent,
     LoginComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +53,12 @@ import { RegisterUserComponent } from './pages/register-user/register-user.compo
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatGridListModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
