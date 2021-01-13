@@ -2,7 +2,7 @@
     <h1 class="heading">My Courses</h1>
     <button mat-raised-button color="accent" >Register for Courses</button>
 </div>
-<ng-container *ngIf="courses.length === 0; else elseTemplate">
+<ng-container *ngIf="courses.length > 0; else elseTemplate">
     <div class="container">
         <mat-card class="example-card">
             <mat-card-header>
