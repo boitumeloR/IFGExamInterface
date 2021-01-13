@@ -103,7 +103,9 @@
                           <span>{{fileName}}</span>
                         </div>
                         <div class= "nextActions">
-                          <button mat-raised-button matStepperNext color="primary">Finish Registration</button>
+                          <button mat-raised-button (click)="registerLearner()" color="primary"
+                          [disabled] = "secondFormGroup.valid ? false: true"
+                          >Finish Registration</button>
                         </div>
                       </form>
                     </mat-step>
