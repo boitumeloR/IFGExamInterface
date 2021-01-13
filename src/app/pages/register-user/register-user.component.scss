@@ -29,6 +29,18 @@
     }
 }
 
+.file {
+    width: 80%;
+    margin-bottom: 15px;
+}
+
+.download {
+    width: 80%;
+}
+
+span {
+    margin-bottom: 10px;
+}
 .nextActions {
     display: flex;
     flex-direction: row;
@@ -41,6 +53,14 @@
 .example-card {
     margin-top: 200px;
     width: 600px;
+
+    @media screen and (max-width: 600px){
+        width: 400px;
+    }
+
+    @media screen and (max-width: 400px){
+        width: 340px;
+    }
 }
 
 .example-header-image {

@@ -27,6 +27,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSnackBarModule,
     MatGridListModule,
     MatMenuModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
