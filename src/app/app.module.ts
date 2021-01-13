@@ -28,6 +28,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {MatSelectModule} from '@angular/material/select';
     LearnerListingComponent,
     LoginComponent,
     RegisterUserComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    LearnerCoursesComponent
   ],
   imports: [
     BrowserModule,
