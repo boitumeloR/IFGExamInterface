@@ -32,6 +32,6 @@ export class CourseService {
   getCourses(server: string): Observable<AuthCourse> {
     // tslint:disable-next-line: no-non-null-assertion
     const session = JSON.parse(sessionStorage.getItem('session')!);
-    return this.http.post<AuthCourse>(`${server}/Courses/GetLearnerCourses`, session, this.httpOptions);
+    return this.http.post<AuthCourse>(`${server}/Course/GetLearnerCourses`, session, this.httpOptions);
   }
 }

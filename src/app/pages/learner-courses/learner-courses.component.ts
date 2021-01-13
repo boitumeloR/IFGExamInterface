@@ -34,6 +34,7 @@ export class LearnerCoursesComponent implements OnInit {
         if (!res.Session.Error) {
           // no session error
           this.courses = res.Courses;
+          sessionStorage.setItem('session', JSON.stringify(res.Session));
         } else {
           sessionStorage.removeItem('session');
           this.authService.loggedIn.next(false);
