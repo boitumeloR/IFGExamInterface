@@ -1,0 +1,46 @@
+<div class="register">
+    <h1 class="heading">My Courses</h1>
+    <button mat-raised-button color="accent" >Register for Courses</button>
+</div>
+<ng-container *ngIf="courses.length > 0; else elseTemplate">
+    <div class="container">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Introduction to Physics
+                    <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                      <mat-menu #menu="matMenu" xPosition="before">
+                        <button mat-menu-item>Deregister Course</button>
+                      </mat-menu>
+                </mat-card-title>
+                <mat-card-subtitle>Physical Science</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="controls">
+                        <mat-list role="list">
+                            <mat-list-item role="listitem">Learner Grade: 7</mat-list-item>
+                            <mat-list-item role="listitem">Date Registered: 20 May 2020</mat-list-item>
+                            <mat-list-item role="listitem">Course Mark: 70</mat-list-item>
+                            <mat-list-item role="listitem">Course Status: Registered</mat-list-item>
+                        </mat-list>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="actions">
+                    </div>
+                </mat-card-actions>
+          </mat-card>
+    </div>
+</ng-container>
+
+<ng-template #elseTemplate>
+    <div class="empty-container">
+        <div class="empty">
+            <img src="assets/images/blank.svg" alt="no courses">
+            <h3>You have not registered for any courses this year.</h3>
+            <button mat-raised-button color="accent">Register for Courses</button>
+        </div>
+    </div>
+</ng-template>
+

@@ -43,4 +43,20 @@ export class AuthService {
   Login(server: string, loginObj: any): Observable<Session> {
     return this.http.post<Session>(`${server}/Auth/Login`, loginObj, this.httpOptions);
   }
+
+  registerAuth(server: string, authObj: any): Observable<any> {
+    return this.http.post<any>(`${server}/Registration/RegisterAuth`, authObj, this.httpOptions);
+  }
+
+  registerLearner(server: string, formData: FormData): Observable<any> {
+    return this.http.post<any>(`${server}/Registration/RegisterLearner`, formData);
+  }
+
+  getCentres(server: string): Observable<any[]> {
+    return this.http.get<any[]>(`${server}/Registration/GetCentres`);
+  }
+
+  getGrades(server: string): Observable<any[]> {
+    return this.http.get<any[]>(`${server}/Registration/GetGrades`);
+  }
 }

@@ -13,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $IFGExamInterface-primary: mat-palette($mat-grey, 800);
-$IFGExamInterface-accent: mat-palette($mat-pink, A200, A100, A400);
+$IFGExamInterface-accent: mat-palette($mat-pink, 100);
 
 // The warn palette is optional (defaults to red).
 $IFGExamInterface-warn: mat-palette($mat-red);

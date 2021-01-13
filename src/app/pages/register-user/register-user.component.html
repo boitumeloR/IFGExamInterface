@@ -28,22 +28,84 @@
                             </mat-form-field>
                         </div>
                         <div class="nextActions">
-                          <button mat-raised-button color = "primary" matStepperNext
+                          <button mat-raised-button color = "primary"
                           [disabled] = "firstFormGroup.valid ? false: true"
+                          (click)="registerAuth(stepper)"
                           >Next</button>
                         </div>
                       </form>
                     </mat-step>
                     <mat-step [stepControl]="secondFormGroup" label="Learner Information">
                       <form [formGroup]="secondFormGroup">
-                        <mat-form-field>
-                          <mat-label>Address</mat-label>
-                          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                                 required>
+                        <div class="controls">
+                          <a class="download" mat-button (click)="goToLink()"> Download Learner agreement</a>
+                          <mat-hint>Fill the agreement and attach the file at the end of this form.</mat-hint>
+                          <mat-form-field appearance="outline">
+                              <mat-label>Name</mat-label>
+                              <input type="text" matInput placeholder="Name" formControlName = "Name">
+                              <mat-hint>Learner name</mat-hint>
+                          </mat-form-field>
+              
+                          <mat-form-field appearance="outline">
+                              <mat-label>Surname</mat-label>
+                              <input type="text" matInput placeholder="Surname" formControlName = "Surname">
+                              <mat-hint>Learner surname</mat-hint>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline">
+                              <mat-label>ID Number</mat-label>
+                              <input type="text" matInput placeholder="Identity Number" formControlName = "IDNumber">
+                              <mat-hint>Learner ID Number</mat-hint>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline">
+                            <mat-label>Centre</mat-label>
+                            <mat-select formControlName="CentreID">
+                              <mat-option *ngFor="let item of (centres$ | async)" [value]="item.CentreID">{{item.CentreName}}</mat-option>
+                            </mat-select>
+                            <mat-hint align="end">Choose the centre where you'll be attending</mat-hint>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline">
+                            <mat-label>School Name</mat-label>
+                            <input type="text" matInput placeholder="School Name" formControlName = "LearnerSchool">
+                            <mat-hint>Learner's school name</mat-hint>
                         </mat-form-field>
-                        <div>
-                          <button mat-button matStepperPrevious>Back</button>
-                          <button mat-button matStepperNext>Next</button>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Grade</mat-label>
+                          <mat-select formControlName="LearnerGradeID">
+                            <mat-option *ngFor="let item of (grades$ | async)" [value]="item.LearnerGradeID"> Grade {{item.LearnerGreadeLevel}}</mat-option>
+                          </mat-select>
+                          <mat-hint align="end">The Grade the learner is currently in</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Address Line 1</mat-label>
+                          <input type="text" matInput placeholder="Address Line 1" formControlName = "Address1">
+                          <mat-hint>Learner's address</mat-hint>
+                        </mat-form-field>
+
+                          <mat-form-field appearance="outline" class="address2">
+                            <mat-label>Address Line 2</mat-label>
+                            <input type="text" matInput placeholder="Address Line 2" formControlName = "Address2">
+                            <mat-hint>Learner's address</mat-hint>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline" class="postal">
+                            <mat-label>Postal Code</mat-label>
+                            <input type="text" matInput placeholder="Postal Code" formControlName = "Code">
+                            <mat-hint>Learner's postal code</mat-hint>
+                          </mat-form-field>
+
+                          <button type="button" color = "accent" class="file" mat-raised-button (click)="fileInput.click()">Upload learner agreement</button>
+                          <input hidden #file (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                          <span>{{fileName}}</span>
+                        </div>
+                        <div class= "nextActions">
+                          <button mat-raised-button (click)="registerLearner()" color="primary"
+                          [disabled] = "secondFormGroup.valid ? false: true"
+                          >Finish Registration</button>
                         </div>
                       </form>
                     </mat-step>

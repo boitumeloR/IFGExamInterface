@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         if (res.UserRoleID === 1) {
           this.router.navigateByUrl('admin-home');
         } else {
-          this.router.navigateByUrl('home');
+          this.router.navigateByUrl('learner-courses');
         }
       } else {
         this.snack.open(res.Error, 'OK', {
