@@ -7,7 +7,8 @@ export interface Course {
   CourseID: number;
   CourseName: string;
   DateRegistered: Date;
-  IsRegistered: boolean;
+  RergistrationStatusID: number;
+  RegistrationStatusName: string;
   CourseGradeID: number;
   CourseSubject: string;
   CourseGradeLevel: number;

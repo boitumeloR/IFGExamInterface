@@ -1,9 +1,4 @@
-.heading {
-    margin: 70px;
-    margin-left: 150px;
-    font-weight: 600;
-    font-size: 35px;
-}
+
 
 .container {
     display: flex;
@@ -19,6 +14,23 @@
     }
 }
 
+.register {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .heading {
+        margin: 70px;
+        margin-left: 150px;
+        font-weight: 600;
+        font-size: 35px;
+    }
+    button {
+        height: 40px;
+        margin-right: 150px;
+    }
+}
 .more-button {
     position: absolute;
     top: 5px;
