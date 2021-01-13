@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -43,6 +44,12 @@ export class LearnerCoursesComponent implements OnInit {
           });
           this.router.navigateByUrl('login');
         }
+      }, (error: HttpErrorResponse) => {
+        this.snack.open(error.message, 'OK', {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
       });
     }
   }

@@ -1,0 +1,21 @@
+.empty-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    .empty {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 300px;
+        }
+
+        button {
+            width: 200px;
+        }
+    }
+}
