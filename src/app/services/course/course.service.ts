@@ -35,4 +35,10 @@ export class CourseService {
     const session = JSON.parse(sessionStorage.getItem('session')!);
     return this.http.post<AuthCourse>(`${server}/Course/GetLearnerCourses`, session, this.httpOptions);
   }
+
+  availableCourses(server: string): Observable<any> {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    return this.http.post<any>(`${server}/Course/AvailableCourses`, session, this.httpOptions);
+  }
 }

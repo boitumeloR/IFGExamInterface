@@ -28,6 +28,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RegisterCoursesComponent } from './modals/register-courses/register-courses.component';
@@ -68,7 +69,8 @@ import { RegisterCoursesComponent } from './modals/register-courses/register-cou
     MatMenuModule,
     MatStepperModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
