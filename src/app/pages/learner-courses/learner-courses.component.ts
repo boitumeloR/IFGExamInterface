@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { RegisterCoursesComponent } from 'src/app/modals/register-courses/register-courses.component';
 import { AuthService, Session } from 'src/app/services/auth/auth.service';
 import { AuthCourse, Course, CourseService } from 'src/app/services/course/course.service';
 import { GlobalService } from 'src/app/services/global/global.service';
@@ -19,7 +21,7 @@ export class LearnerCoursesComponent implements OnInit {
   courses$: Observable<AuthCourse> = this.courseService.getCourses(this.global.getServer());
   constructor(private router: Router, private snack: MatSnackBar,
               private courseService: CourseService, private global: GlobalService,
-              private authService: AuthService) { }
+              private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     if (this.session.UserRoleID !== 2) {
@@ -53,6 +55,17 @@ export class LearnerCoursesComponent implements OnInit {
         });
       });
     }
+  }
+
+  registerCourses(): void {
+    const dialogRef = this.dialog.open(RegisterCoursesComponent, {
+      disableClose: true,
+      width: '50%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // run function after closed
+    });
   }
 
 }

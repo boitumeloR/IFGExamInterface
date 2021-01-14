@@ -29,6 +29,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
 import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { RegisterCoursesComponent } from './modals/register-courses/register-courses.component';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses
     LoginComponent,
     RegisterUserComponent,
     AdminHomeComponent,
-    LearnerCoursesComponent
+    LearnerCoursesComponent,
+    RegisterCoursesComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses
     MatGridListModule,
     MatMenuModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
