@@ -17,7 +17,8 @@ import { GlobalService } from 'src/app/services/global/global.service';
 export class RegisterCoursesComponent implements OnInit {
 
   maxCourses = 0;
-  courses = [];
+  courseReg: any[] = [];
+  courses: any[] = [];
   courseSelect: FormGroup = this.fb.group({
     selectedCourses: this.fb.array([], [Validators.required])
   });
@@ -53,16 +54,33 @@ export class RegisterCoursesComponent implements OnInit {
     });
   }
 
-  onChange(event: any): void {
-    const selectedCourses =  this.courseSelect.get('selectedCourses') as FormArray;
-
-    if (event.checked) {
-      selectedCourses.push(new FormControl(event.source.value));
-    }
-    else {
-      const i = selectedCourses.controls.findIndex(x => x.value === event.source.value);
-      selectedCourses.removeAt(i);
-    }
+  addCourse(course: any): void {
+      this.courseReg.push(course.CourseID);
+      const mainIndex = this.courses.findIndex(zz => zz.CourseID === course.CourseID);
+      this.courses[mainIndex].CourseStatus = true;
   }
 
+  removeCourse(course: any): void {
+    const index  = this.courseReg.findIndex(zz => zz === course.CourseID);
+    this.courseReg.splice(index, 1);
+    const mainIndex = this.courses.findIndex(zz => zz.CourseID === course.CourseID);
+    this.courses[mainIndex].CourseStatus = false;
+  }
+
+  registerCourses(): void {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    const enroll = {
+      Courses: this.courseReg,
+      Session: session
+    };
+
+    this.courseService.enrollCourses(this.global.getServer(), enroll).subscribe(res => {
+      	if (!res.Session.Error) {
+
+        } else {
+          
+        }
+    });
+  }
 }

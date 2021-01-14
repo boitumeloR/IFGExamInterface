@@ -41,4 +41,8 @@ export class CourseService {
     const session = JSON.parse(sessionStorage.getItem('session')!);
     return this.http.post<any>(`${server}/Course/AvailableCourses`, session, this.httpOptions);
   }
+
+  enrollCourses(server: string, enrollment: any): Observable<any> {
+    return this.http.post<any>(`${server}/Course/RegisterCourses`, enrollment, this.httpOptions);
+  }
 }
