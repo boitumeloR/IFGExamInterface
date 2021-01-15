@@ -14,7 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'admin-home',
-    component: AdminHomeComponent
+    component: AdminHomeComponent,
+    canActivate: [AuthGuard],
+    data: {roleID: 1}
   },
   {
     path: 'register',
@@ -27,7 +29,8 @@ const routes: Routes = [
   {
     path: 'learner-courses',
     component: LearnerCoursesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {roleID: 2}
   }
 ];
 
