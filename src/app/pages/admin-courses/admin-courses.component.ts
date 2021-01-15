@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AddCourseComponent } from 'src/app/modals/add-course/add-course.component';
+import { GlobalConfirmComponent } from 'src/app/modals/global-confirm/global-confirm.component';
 import { GlobalErrorComponent } from 'src/app/modals/global-error/global-error.component';
 import { UpdateCourseComponent } from 'src/app/modals/update-course/update-course.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -105,7 +106,52 @@ export class AdminCoursesComponent implements OnInit {
       if (!res.Session.Error) {
         if (res.CanModify) {
           sessionStorage.setItem('session', JSON.stringify(res.Session));
-          // modify
+          // delete course
+          const confirm = this.dialog.open(GlobalConfirmComponent, {
+            disableClose: true,
+            data: {condfirmation: 'Are you sure you want to delete this course'}
+          });
+
+          confirm.afterClosed().subscribe(result => {
+            if (result) {
+              // delete
+              const delCourse = {
+                ...course,
+                // tslint:disable-next-line: no-non-null-assertion
+                Session: JSON.parse(sessionStorage.getItem('session')!)
+              };
+              this.courseService.deleteCourse(this.global.getServer(), delCourse).subscribe(del => {
+                if (!del.Session.Error) {
+                  if (del.Success) {
+                    sessionStorage.setItem('session', JSON.stringify(res.Session));
+                    this.readCourses();
+                    this.snack.open('Successfully deleted course.', 'OK', {
+                      verticalPosition: 'bottom',
+                      horizontalPosition: 'center',
+                      duration: 3000
+                    });
+                  } else {
+                    this.dialog.open(GlobalErrorComponent, {
+                      disableClose: true,
+                      data: {error: del.Error}
+                    });
+                    sessionStorage.setItem('session', JSON.stringify(res.Session));
+                  }
+                } else {
+                  sessionStorage.removeItem('session');
+                  this.authService.loggedIn.next(false);
+                  this.snack.open(res.Session.Error, 'OK', {
+                    verticalPosition: 'bottom',
+                    horizontalPosition: 'center',
+                    duration: 3000
+                  });
+                  this.router.navigateByUrl('login');
+                }
+              });
+            } else {
+              this.readCourses();
+            }
+          });
         } else {
           sessionStorage.setItem('session', JSON.stringify(res.Session));
           this.dialog.open(GlobalErrorComponent, {

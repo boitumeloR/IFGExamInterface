@@ -51,7 +51,7 @@ export class AddCourseComponent implements OnInit {
         if (res.Success) {
           sessionStorage.setItem('session', JSON.stringify(res.Session));
           this.dialogRef.close();
-          this.snack.open('Successfully registered.', 'OK', {
+          this.snack.open('Successfully added course.', 'OK', {
             verticalPosition: 'bottom',
             horizontalPosition: 'center',
             duration: 3000
