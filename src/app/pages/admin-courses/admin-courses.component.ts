@@ -15,6 +15,7 @@ import { GlobalService } from 'src/app/services/global/global.service';
 export class AdminCoursesComponent implements OnInit {
 
   dataSource =  new MatTableDataSource<any>();
+  filter = '';
   displayedColumns: string[] = ['courseID', 'courseName', 'courseSubject', 'courseDescription', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   constructor(private global: GlobalService, private courseService: CourseService,
@@ -33,7 +34,15 @@ export class AdminCoursesComponent implements OnInit {
     });
   }
 
-  updateCourse(): void {
+  filterTable(filter: any): void{
+    this.dataSource.filter = filter;
+  }
+
+  addCourse(): void {
+    //
+  }
+
+  updateCourse(course: any): void {
     //
   }
 

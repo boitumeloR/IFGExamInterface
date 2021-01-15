@@ -36,6 +36,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import { DeregisterCourseComponent } from './modals/deregister-course/deregister-course.component';
 import { GlobalConfirmComponent } from './modals/global-confirm/global-confirm.component';
 import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.component';
+import { UpdateCourseComponent } from './modals/update-course/update-course.component';
+import { GlobalErrorComponent } from './modals/global-error/global-error.component';
 
 
 
@@ -51,7 +53,9 @@ import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.compo
     RegisterCoursesComponent,
     DeregisterCourseComponent,
     GlobalConfirmComponent,
-    AdminCoursesComponent
+    AdminCoursesComponent,
+    UpdateCourseComponent,
+    GlobalErrorComponent
   ],
   imports: [
     BrowserModule,
