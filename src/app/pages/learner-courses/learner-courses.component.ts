@@ -72,6 +72,7 @@ export class LearnerCoursesComponent implements OnInit {
   DeregisterCourse(course: Course): void {
     const dialogRef = this.dialog.open(DeregisterCourseComponent, {
       disableClose: true,
+      data: {course}
     });
 
     dialogRef.afterClosed().subscribe(result => {

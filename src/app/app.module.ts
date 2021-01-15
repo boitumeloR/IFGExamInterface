@@ -34,6 +34,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { RegisterCoursesComponent } from './modals/register-courses/register-courses.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { DeregisterCourseComponent } from './modals/deregister-course/deregister-course.component';
+import { GlobalConfirmComponent } from './modals/global-confirm/global-confirm.component';
 
 
 
@@ -47,7 +48,8 @@ import { DeregisterCourseComponent } from './modals/deregister-course/deregister
     AdminHomeComponent,
     LearnerCoursesComponent,
     RegisterCoursesComponent,
-    DeregisterCourseComponent
+    DeregisterCourseComponent,
+    GlobalConfirmComponent
   ],
   imports: [
     BrowserModule,
