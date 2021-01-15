@@ -82,7 +82,7 @@ export class RegisterCoursesComponent implements OnInit {
     this.courseService.enrollCourses(this.global.getServer(), enroll).subscribe(res => {
       if (!res.Session.Error) {
         if (res.Success) {
-          sessionStorage.setItem('session', JSON.parse(res.Session));
+          sessionStorage.setItem('session', JSON.stringify(res.Session));
           this.dialogRef.close();
           this.snack.open('Successfully registered.', 'OK', {
             verticalPosition: 'bottom',
@@ -92,7 +92,7 @@ export class RegisterCoursesComponent implements OnInit {
         } else {
           this.isError = true;
           this.error = res.Error;
-          sessionStorage.setItem('session', JSON.parse(res.Session));
+          sessionStorage.setItem('session', JSON.stringify(res.Session));
         }
       } else {
         sessionStorage.removeItem('session');

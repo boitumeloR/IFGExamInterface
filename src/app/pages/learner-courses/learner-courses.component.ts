@@ -38,7 +38,7 @@ export class LearnerCoursesComponent implements OnInit {
   }
 
   readCourses(): void {
-    this.courses$.subscribe(res => {
+    this.courseService.getCourses(this.global.getServer()).subscribe(res => {
       if (!res.Session.Error) {
         // no session error
         this.courses = res.Courses;

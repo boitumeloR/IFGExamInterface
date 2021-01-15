@@ -44,6 +44,10 @@ export class AuthService {
     return this.http.post<Session>(`${server}/Auth/Login`, loginObj, this.httpOptions);
   }
 
+  Logout(server: string, session: any): Observable<Session> {
+    return this.http.post<Session>(`${server}/Auth/Logout`, session, this.httpOptions);
+  }
+
   registerAuth(server: string, authObj: any): Observable<any> {
     return this.http.post<any>(`${server}/Registration/RegisterAuth`, authObj, this.httpOptions);
   }

@@ -3,12 +3,26 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
+
+    <div *ngIf="(loggedIn$ | async) === true">
+      <div class="container">
+        <img src="assets/images/user.svg" alt="user">
+        <p class="email">{{session.EmailAddress}}</p>
+        <p>{{session.UserRoleName}}</p>
+      </div>
+      <ng-container *ngIf="session.UserRoleID === 2; else elseTemplate">
+        <mat-nav-list>
+          <a mat-list-item [routerLink]="[ '/learner-courses' ]">My Courses</a>
+          <a mat-list-item href="#">Log Out</a>
+        </mat-nav-list>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <mat-nav-list>
+          <a mat-list-item [routerLink]="[ '/learner-courses' ]">My Courses</a>
+          <a mat-list-item (click)="logOut()">Log Out</a>
+        </mat-nav-list>
+      </ng-template>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
