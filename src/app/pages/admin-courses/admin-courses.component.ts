@@ -33,6 +33,14 @@ export class AdminCoursesComponent implements OnInit {
     });
   }
 
+  updateCourse(): void {
+    //
+  }
+
+  deleteCourse(course: any): void {
+    //
+  }
+
   serverDownSnack(): void {
     this.snack.open('Our servers are currently unreachable. Please try again later.', 'OK', {
       duration: 300,
