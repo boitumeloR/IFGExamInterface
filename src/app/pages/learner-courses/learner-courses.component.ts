@@ -33,29 +33,33 @@ export class LearnerCoursesComponent implements OnInit {
       });
       this.router.navigateByUrl('login');
     } else {
-      this.courses$.subscribe(res => {
-        if (!res.Session.Error) {
-          // no session error
-          this.courses = res.Courses;
-          sessionStorage.setItem('session', JSON.stringify(res.Session));
-        } else {
-          sessionStorage.removeItem('session');
-          this.authService.loggedIn.next(false);
-          this.snack.open(res.Session.Error, 'OK', {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-            duration: 3000
-          });
-          this.router.navigateByUrl('login');
-        }
-      }, (error: HttpErrorResponse) => {
-        this.snack.open(error.message, 'OK', {
+      this.readCourses();
+    }
+  }
+
+  readCourses(): void {
+    this.courses$.subscribe(res => {
+      if (!res.Session.Error) {
+        // no session error
+        this.courses = res.Courses;
+        sessionStorage.setItem('session', JSON.stringify(res.Session));
+      } else {
+        sessionStorage.removeItem('session');
+        this.authService.loggedIn.next(false);
+        this.snack.open(res.Session.Error, 'OK', {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
           duration: 3000
         });
+        this.router.navigateByUrl('login');
+      }
+    }, (error: HttpErrorResponse) => {
+      this.snack.open(error.message, 'OK', {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 3000
       });
-    }
+    });
   }
 
   registerCourses(): void {
@@ -66,10 +70,11 @@ export class LearnerCoursesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // run function after closed
+      this.readCourses();
     });
   }
 
-  DeregisterCourse(course: Course): void {
+  deregisterCourse(course: Course): void {
     const dialogRef = this.dialog.open(DeregisterCourseComponent, {
       disableClose: true,
       data: {course}
@@ -77,6 +82,7 @@ export class LearnerCoursesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // run function after closed
+      this.readCourses();
     });
   }
 
