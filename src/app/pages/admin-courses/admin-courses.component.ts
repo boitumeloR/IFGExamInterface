@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AddCourseComponent } from 'src/app/modals/add-course/add-course.component';
 import { GlobalErrorComponent } from 'src/app/modals/global-error/global-error.component';
+import { UpdateCourseComponent } from 'src/app/modals/update-course/update-course.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { GlobalService } from 'src/app/services/global/global.service';
@@ -63,7 +64,17 @@ export class AdminCoursesComponent implements OnInit {
       if (!res.Session.Error) {
         if (res.CanModify) {
           sessionStorage.setItem('session', JSON.stringify(res.Session));
-          // modify
+          // update course
+
+          const update = this.dialog.open(UpdateCourseComponent, {
+            disableClose: true,
+            data: {course}
+          });
+
+          update.afterClosed().subscribe(result => {
+            this.readCourses();
+          });
+
         } else {
           sessionStorage.setItem('session', JSON.stringify(res.Session));
           this.dialog.open(GlobalErrorComponent, {
