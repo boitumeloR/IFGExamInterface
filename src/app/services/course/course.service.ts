@@ -64,7 +64,15 @@ export class CourseService {
   }
 
   addCourse(server: string, course: any): Observable<any> {
-    return this.http.post<any>(`${server}/Course/RegisterCourses`, course, this.httpOptions);
+    return this.http.post<any>(`${server}/Course/AddCourse`, course, this.httpOptions);
+  }
+
+  updateCourse(server: string, course: any): Observable<any> {
+    return this.http.post<any>(`${server}/Course/UpdateCourse`, course, this.httpOptions);
+  }
+
+  deleteCourse(server: string, course: any): Observable<any> {
+    return this.http.post<any>(`${server}/Course/DeleteCourse`, course, this.httpOptions);
   }
 
   getCourseCentres(server: string): Observable<any[]> {
@@ -77,6 +85,10 @@ export class CourseService {
 
   getCourseSubjects(server: string): Observable<any[]> {
     return this.http.get<any[]>(`${server}/Course/GetCourseSubjects`);
+  }
+
+  checkModification(server: string, course: any): Observable<any>{
+    return this.http.post<any>(`${server}/Course/CheckModificationStatus`, course, this.httpOptions);
   }
 
 }
