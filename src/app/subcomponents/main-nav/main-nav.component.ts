@@ -30,11 +30,13 @@ export class MainNavComponent implements OnInit {
     }
   }
 
-  logOut(): void {
+  logOut(drawer: any): void {
+    drawer.toggle();
     // tslint:disable-next-line: no-non-null-assertion
-    this.authService.Logout(this.global.getServer(), JSON.parse(sessionStorage.getItem('session')!)).subscribe(res => {
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    this.authService.Logout(this.global.getServer(), session ).subscribe(res => {
       sessionStorage.removeItem('session');
-      this.loggedIn$ = this.authService.isLoggedIn;
+      this.authService.loggedIn.next(false);
       this.router.navigateByUrl('login');
     });
   }

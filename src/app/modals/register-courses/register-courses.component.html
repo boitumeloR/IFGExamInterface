@@ -1,6 +1,5 @@
 <h2 mat-dialog-title>Course Registration</h2>
     <mat-dialog-content class="mat-typography">
-    <h3>Pick the courses that you would like to register for</h3>
     <ng-container *ngIf="courses.length > 0; else elseTemplate">
         <div class="container">
             <mat-chip *ngIf="isError">{{error}}</mat-chip>
@@ -39,5 +38,7 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-raised-button color="primary" cdkFocusInitial (click)="registerCourses()">Register for selected courses</button>
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="registerCourses()"
+        [disabled] = "courseReg.length > 0 ? false: true"
+        >Register for selected courses</button>
     </mat-dialog-actions>
