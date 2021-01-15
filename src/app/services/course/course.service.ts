@@ -63,6 +63,10 @@ export class CourseService {
     return this.http.post<any>(`${server}/Course/RegisterCourses`, dereg, this.httpOptions);
   }
 
+  addCourse(server: string, course: any): Observable<any> {
+    return this.http.post<any>(`${server}/Course/RegisterCourses`, course, this.httpOptions);
+  }
+
   getCourseCentres(server: string): Observable<any[]> {
     return this.http.get<any[]>(`${server}/Course/GetCourseCentres`);
   }

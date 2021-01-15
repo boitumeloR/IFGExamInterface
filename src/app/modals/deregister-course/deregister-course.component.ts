@@ -40,9 +40,9 @@ export class DeregisterCourseComponent implements OnInit {
     confirm.afterClosed().subscribe(res => {
       if (res) {
         this.courseService.deregisterCourse(this.global.getServer(), this.course).subscribe(result => {
-          if (!res.Session.Error) {
-            if (res.Success) {
-              sessionStorage.setItem('session', JSON.parse(res.Session));
+          if (!result.Session.Error) {
+            if (result.Success) {
+              sessionStorage.setItem('session', JSON.parse(result.Session));
               this.dialogRef.close();
               this.snack.open('Successfully deregistered.', 'OK', {
                 verticalPosition: 'bottom',
@@ -52,13 +52,13 @@ export class DeregisterCourseComponent implements OnInit {
             } else {
               this.isError = true;
               this.error = res.Error;
-              sessionStorage.setItem('session', JSON.parse(res.Session));
+              sessionStorage.setItem('session', JSON.parse(result.Session));
             }
           } else {
             sessionStorage.removeItem('session');
             this.authService.loggedIn.next(false);
             this.dialogRef.close();
-            this.snack.open(res.Session.Error, 'OK', {
+            this.snack.open(result.Session.Error, 'OK', {
               verticalPosition: 'bottom',
               horizontalPosition: 'center',
               duration: 3000
@@ -68,6 +68,7 @@ export class DeregisterCourseComponent implements OnInit {
         });
       } else {
         // close
+        this.dialogRef.close();
       }
     });
   }
