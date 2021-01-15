@@ -62,4 +62,17 @@ export class CourseService {
     };
     return this.http.post<any>(`${server}/Course/RegisterCourses`, dereg, this.httpOptions);
   }
+
+  getCourseCentres(server: string): Observable<any[]> {
+    return this.http.get<any[]>(`${server}/Course/GetCourseCentres`);
+  }
+
+  getCourseGrades(server: string): Observable<any[]> {
+    return this.http.get<any[]>(`${server}/Course/GetCourseGrades`);
+  }
+
+  getCourseSubjects(server: string): Observable<any[]> {
+    return this.http.get<any[]>(`${server}/Course/GetCourseSubjects`);
+  }
+
 }

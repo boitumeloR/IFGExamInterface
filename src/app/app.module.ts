@@ -38,6 +38,7 @@ import { GlobalConfirmComponent } from './modals/global-confirm/global-confirm.c
 import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.component';
 import { UpdateCourseComponent } from './modals/update-course/update-course.component';
 import { GlobalErrorComponent } from './modals/global-error/global-error.component';
+import { AddCourseComponent } from './modals/add-course/add-course.component';
 
 
 
@@ -55,7 +56,8 @@ import { GlobalErrorComponent } from './modals/global-error/global-error.compone
     GlobalConfirmComponent,
     AdminCoursesComponent,
     UpdateCourseComponent,
-    GlobalErrorComponent
+    GlobalErrorComponent,
+    AddCourseComponent
   ],
   imports: [
     BrowserModule,
