@@ -6,6 +6,7 @@ import { Session } from '../auth/auth.service';
 export interface Course {
   CourseID: number;
   CourseName: string;
+  CourseDescription: string;
   DateRegistered: Date;
   RergistrationStatusID: number;
   RegistrationStatusName: string;
@@ -35,6 +36,12 @@ export class CourseService {
     // tslint:disable-next-line: no-non-null-assertion
     const session = JSON.parse(sessionStorage.getItem('session')!);
     return this.http.post<AuthCourse>(`${server}/Course/GetLearnerCourses`, session, this.httpOptions);
+  }
+
+  getAdminCourses(server: string): Observable<AuthCourse> {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    return this.http.post<AuthCourse>(`${server}/Course/AdminCourses`, session, this.httpOptions);
   }
 
   availableCourses(server: string): Observable<any> {
