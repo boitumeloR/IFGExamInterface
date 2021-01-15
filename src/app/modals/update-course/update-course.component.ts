@@ -17,7 +17,7 @@ import { GlobalErrorComponent } from '../global-error/global-error.component';
 })
 export class UpdateCourseComponent implements OnInit {
 
-  courseData: any = this.data;
+  courseData: any = this.data.course;
   centres$: Observable<any> = this.courseService.getCourseCentres(this.global.getServer());
   grades$: Observable<any> = this.courseService.getCourseGrades(this.global.getServer());
   subjects$: Observable<any> = this.courseService.getCourseSubjects(this.global.getServer());
@@ -35,6 +35,7 @@ export class UpdateCourseComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: {course: any}) { }
 
   ngOnInit(): void {
+    console.log(this.courseData);
   }
 
   Cancel(): void {
@@ -45,6 +46,7 @@ export class UpdateCourseComponent implements OnInit {
     const preCourse = this.courseGroup.value;
     const postCourse = {
       ...preCourse,
+      CourseID: this.courseData.CourseID,
       // tslint:disable-next-line: no-non-null-assertion
       Session: JSON.parse(sessionStorage.getItem('session')!)
     };

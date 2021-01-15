@@ -22,9 +22,9 @@ export class AddCourseComponent implements OnInit {
   courseGroup: FormGroup = this.fb.group({
     CourseName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
     CourseDescription: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
-    CourseSubjectID: [null, Validators.required],
-    CourseGradeID: [null, Validators.required],
-    CourseCentreID: [null, Validators.required]
+    CourseSubjectID: [0, Validators.required],
+    CourseGradeID: [0, Validators.required],
+    CourseCentreID: [0, Validators.required]
   });
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AddCourseComponent>,
               private courseService: CourseService, private global: GlobalService,
@@ -32,6 +32,13 @@ export class AddCourseComponent implements OnInit {
               private snack: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.courseGroup = this.fb.group({
+      CourseName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      CourseDescription: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
+      CourseSubjectID: [0, Validators.required],
+      CourseGradeID: [0, Validators.required],
+      CourseCentreID: [0, Validators.required]
+    });
   }
 
   Cancel(): void {
@@ -39,6 +46,8 @@ export class AddCourseComponent implements OnInit {
   }
 
   addCourse(): void {
+
+    console.log(this.courseGroup.value);
     const preCourse = this.courseGroup.value;
     const postCourse = {
       ...preCourse,

@@ -1,40 +1,42 @@
-<h2 mat-dialog-title>Add Course</h2>
+<h2 mat-dialog-title>Update Course</h2>
 <form [formGroup]="courseGroup">
     <mat-dialog-content class="mat-typography">
+      <div class="container">
         <mat-form-field appearance="outline">
-            <mat-label>Course Name</mat-label>
-            <input type="text" matInput placeholder="School Name" formControlName = "CourseName">
-            <mat-hint>The course name</mat-hint>
-        </mat-form-field>
+          <mat-label>Course Name</mat-label>
+          <input type="text" matInput placeholder="School Name" formControlName = "CourseName">
+          <mat-hint>The course name</mat-hint>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Course Centre</mat-label>
-            <mat-select formControlName="CourseCentreID">
-              <mat-option *ngFor="let item of (centres$ | async)" [value]="item.CourseCentreID"> Grade {{item.CourseCentreName}}</mat-option>
-            </mat-select>
-            <mat-hint align="end">The centre the course will be offered at</mat-hint>
-          </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Course Grade</mat-label>
-          <mat-select formControlName="CourseGradeID">
-            <mat-option *ngFor="let item of (grades$ | async)" [value]="item.CourseGradeID"> Grade {{item.CourseGradeLevel}}</mat-option>
+      <mat-form-field appearance="outline">
+          <mat-label>Course Centre</mat-label>
+          <mat-select formControlName="CourseCentreID">
+            <mat-option *ngFor="let item of (centres$ | async)" [value]="item.CourseCentreID"> {{item.CourseCentreName}}</mat-option>
+          </mat-select>
+          <mat-hint align="end">The centre the course will be offered at</mat-hint>
+        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Course Grade</mat-label>
+        <mat-select formControlName="CourseGradeID">
+          <mat-option *ngFor="let item of (grades$ | async)" [value]="item.CourseGradeID"> Grade {{item.CourseGradeLevel}}</mat-option>
+        </mat-select>
+        <mat-hint align="end">The grade the course is for</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Course Subject</mat-label>
+          <mat-select formControlName="CourseSubjectID">
+            <mat-option *ngFor="let item of (subjects$ | async)" [value]="item.CourseSubjectID"> {{item.CourseSubjectName}}</mat-option>
           </mat-select>
           <mat-hint align="end">The grade the course is for</mat-hint>
-        </mat-form-field>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Course Subject</mat-label>
-            <mat-select formControlName="CourseSubjectID">
-              <mat-option *ngFor="let item of (subjects$ | async)" [value]="item.SubjectID"> Grade {{item.SubjectName}}</mat-option>
-            </mat-select>
-            <mat-hint align="end">The grade the course is for</mat-hint>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-        <mat-label>Course Description</mat-label>
-        <textarea matInput placeholder="Course description..." forControlName = "CourseDescription"></textarea>
-        <mat-hint>A description of the course</mat-hint>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+      <mat-label>Course Description</mat-label>
+      <textarea matInput placeholder="Course description..." formControlName = "CourseDescription"></textarea>
+      <mat-hint>A description of the course</mat-hint>
+      </mat-form-field>
+      </div>
 
     </mat-dialog-content>
     <mat-dialog-actions align="end">

@@ -34,8 +34,20 @@ export class AdminCoursesComponent implements OnInit {
 
   readCourses(): void {
     this.courseService.getAdminCourses(this.global.getServer()).subscribe(res => {
-      this.dataSource = new MatTableDataSource(res.Courses);
-      this.dataSource.paginator = this.paginator;
+      if (!res.Session.Error) {
+        sessionStorage.setItem('session', JSON.stringify(res.Session));
+        this.dataSource = new MatTableDataSource(res.Courses);
+        this.dataSource.paginator = this.paginator;
+      } else {
+        sessionStorage.removeItem('session');
+        this.authService.loggedIn.next(false);
+        this.snack.open(res.Session.Error, 'OK', {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
+        this.router.navigateByUrl('login');
+      }
     }, (error: HttpErrorResponse) => {
       this.serverDownSnack();
     });
@@ -47,7 +59,8 @@ export class AdminCoursesComponent implements OnInit {
 
   addCourse(): void {
     const add = this.dialog.open(AddCourseComponent, {
-      disableClose: true
+      disableClose: true,
+      width: '30%'
     });
 
     add.afterClosed().subscribe(res => {
@@ -109,7 +122,7 @@ export class AdminCoursesComponent implements OnInit {
           // delete course
           const confirm = this.dialog.open(GlobalConfirmComponent, {
             disableClose: true,
-            data: {condfirmation: 'Are you sure you want to delete this course'}
+            data: {confirmation: 'Are you sure you want to delete this course?'}
           });
 
           confirm.afterClosed().subscribe(result => {
@@ -122,8 +135,8 @@ export class AdminCoursesComponent implements OnInit {
               };
               this.courseService.deleteCourse(this.global.getServer(), delCourse).subscribe(del => {
                 if (!del.Session.Error) {
+                  sessionStorage.setItem('session', JSON.stringify(del.Session));
                   if (del.Success) {
-                    sessionStorage.setItem('session', JSON.stringify(res.Session));
                     this.readCourses();
                     this.snack.open('Successfully deleted course.', 'OK', {
                       verticalPosition: 'bottom',
@@ -135,7 +148,7 @@ export class AdminCoursesComponent implements OnInit {
                       disableClose: true,
                       data: {error: del.Error}
                     });
-                    sessionStorage.setItem('session', JSON.stringify(res.Session));
+                    sessionStorage.setItem('session', JSON.stringify(del.Session));
                   }
                 } else {
                   sessionStorage.removeItem('session');

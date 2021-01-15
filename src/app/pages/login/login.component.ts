@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('learner-courses');
         }
       } else {
+        sessionStorage.setItem('session', JSON.stringify(res));
         this.snack.open(res.Error, 'OK', {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
