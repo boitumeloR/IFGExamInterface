@@ -45,4 +45,13 @@ export class CourseService {
   enrollCourses(server: string, enrollment: any): Observable<any> {
     return this.http.post<any>(`${server}/Course/RegisterCourses`, enrollment, this.httpOptions);
   }
+
+  deregisterCourse(server: string, course: any): Observable<any> {
+    const dereg = {
+      ...course,
+      // tslint:disable-next-line: no-non-null-assertion
+      Session: JSON.parse(sessionStorage.getItem('session')!)
+    };
+    return this.http.post<any>(`${server}/Course/RegisterCourses`, dereg, this.httpOptions);
+  }
 }

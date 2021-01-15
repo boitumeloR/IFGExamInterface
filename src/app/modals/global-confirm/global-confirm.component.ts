@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-global-confirm',
@@ -8,9 +8,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GlobalConfirmComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {confirmation: string}) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {confirmation: string},
+              private dialogRef: MatDialogRef<GlobalConfirmComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  Confirm(): void {
+    this.dialogRef.close(true);
+  }
+
+  Cancel(): void {
+    this.dialogRef.close(false);
   }
 
 }
