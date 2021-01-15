@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,6 +20,8 @@ export class RegisterCoursesComponent implements OnInit {
   maxCourses = 0;
   courseReg: any[] = [];
   courses: any[] = [];
+  error = '';
+  isError = false;
   courseSelect: FormGroup = this.fb.group({
     selectedCourses: this.fb.array([], [Validators.required])
   });
@@ -26,7 +29,8 @@ export class RegisterCoursesComponent implements OnInit {
   availCourses$: Observable<any> = this.courseService.availableCourses(this.global.getServer());
   constructor(private fb: FormBuilder, private courseService: CourseService,
               private global: GlobalService, private authService: AuthService,
-              private snack: MatSnackBar, private router: Router) { }
+              private snack: MatSnackBar, private router: Router,
+              private dialogRef: MatDialogRef<RegisterCoursesComponent>) { }
 
   ngOnInit(): void {
     this.availCourses$.subscribe(res => {
@@ -76,11 +80,30 @@ export class RegisterCoursesComponent implements OnInit {
     };
 
     this.courseService.enrollCourses(this.global.getServer(), enroll).subscribe(res => {
-      	if (!res.Session.Error) {
-
+      if (!res.Session.Error) {
+        if (res.Success) {
+          sessionStorage.setItem('session', JSON.parse(res.Session));
+          this.dialogRef.close();
+          this.snack.open('Successfully registered.', 'OK', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
         } else {
-          
+          this.isError = true;
+          this.error = res.Error;
+          sessionStorage.setItem('session', JSON.parse(res.Session));
         }
+      } else {
+        sessionStorage.removeItem('session');
+        this.authService.loggedIn.next(false);
+        this.snack.open(res.Session.Error, 'OK', {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
+        this.router.navigateByUrl('login');
+      }
     });
   }
 }

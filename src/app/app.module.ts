@@ -32,6 +32,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RegisterCoursesComponent } from './modals/register-courses/register-courses.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { DeregisterCourseComponent } from './modals/deregister-course/deregister-course.component';
+
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import { RegisterCoursesComponent } from './modals/register-courses/register-cou
     RegisterUserComponent,
     AdminHomeComponent,
     LearnerCoursesComponent,
-    RegisterCoursesComponent
+    RegisterCoursesComponent,
+    DeregisterCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,8 @@ import { RegisterCoursesComponent } from './modals/register-courses/register-cou
     MatStepperModule,
     MatSelectModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

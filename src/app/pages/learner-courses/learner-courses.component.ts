@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DeregisterCourseComponent } from 'src/app/modals/deregister-course/deregister-course.component';
 import { RegisterCoursesComponent } from 'src/app/modals/register-courses/register-courses.component';
 import { AuthService, Session } from 'src/app/services/auth/auth.service';
 import { AuthCourse, Course, CourseService } from 'src/app/services/course/course.service';
@@ -61,6 +62,16 @@ export class LearnerCoursesComponent implements OnInit {
     const dialogRef = this.dialog.open(RegisterCoursesComponent, {
       disableClose: true,
       width: '50%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // run function after closed
+    });
+  }
+
+  DeregisterCourse(course: Course): void {
+    const dialogRef = this.dialog.open(DeregisterCourseComponent, {
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(result => {
