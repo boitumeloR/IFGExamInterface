@@ -131,7 +131,7 @@ export class DeregistrationsComponent implements OnInit {
           if (!res.Session.Error) {
             if (res.Success) {
               sessionStorage.setItem('session', JSON.stringify(res.Session));
-              this.snack.open('Successfully approved.', 'OK', {
+              this.snack.open('Successfully declined.', 'OK', {
                 verticalPosition: 'bottom',
                 horizontalPosition: 'center',
                 duration: 3000
