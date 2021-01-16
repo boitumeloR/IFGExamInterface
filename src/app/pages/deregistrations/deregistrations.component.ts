@@ -8,6 +8,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { GlobalConfirmComponent } from 'src/app/modals/global-confirm/global-confirm.component';
+import { GlobalErrorComponent } from 'src/app/modals/global-error/global-error.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { LearnerService } from 'src/app/services/learner/learner.service';
@@ -29,25 +31,20 @@ export class DeregistrationsComponent implements OnInit {
   });
   displayedColumns: string[] = [ 'learnerName', 'courseName', 'status', 'deregisterReason', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   constructor(private global: GlobalService, private learnerService: LearnerService,
               private router: Router, private snack: MatSnackBar, private dialog: MatDialog,
               private authService: AuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.readAllLearners();
+    this.readAllDeregs();
   }
 
-  ngAfterViewInit(): void {
-  }
-
-  readAllLearners(): void {
-    this.learnerService.getAllLearners(this.global.getServer()).subscribe(res => {
+  readAllDeregs(): void {
+    this.learnerService.getAllDeregistrations(this.global.getServer()).subscribe(res => {
       if (!res.Session.Error) {
         sessionStorage.setItem('session', JSON.stringify(res.Session));
         this.dataSource = new MatTableDataSource(res.Learners);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       } else {
         sessionStorage.removeItem('session');
         this.authService.loggedIn.next(false);
@@ -63,47 +60,114 @@ export class DeregistrationsComponent implements OnInit {
     });
   }
 
+  Approve(enrollment: any): void {
+    const confirm = this.dialog.open(GlobalConfirmComponent, {
+      disableClose: true,
+      data: {confirmation: 'Are you sure you want to approve this deregistration?'}
+    });
+
+    confirm.afterClosed().subscribe(approve => {
+      if (approve) {
+        const deregData = {
+          CourseID: enrollment.CourseID,
+          LearnerID: enrollment.LearnerID,
+          IsDeregistered: true,
+          // tslint:disable-next-line: no-non-null-assertion
+          Session: JSON.parse(sessionStorage.getItem('session')!)
+        };
+
+        this.learnerService.approveDeregistration(this.global.getServer(), deregData).subscribe(res => {
+          if (!res.Session.Error) {
+            if (res.Success) {
+              sessionStorage.setItem('session', JSON.stringify(res.Session));
+              this.snack.open('Successfully approved.', 'OK', {
+                verticalPosition: 'bottom',
+                horizontalPosition: 'center',
+                duration: 3000
+              });
+              this.readAllDeregs();
+            } else {
+              this.dialog.open(GlobalErrorComponent, {
+                disableClose: true,
+                data: {error: res.Error}
+              });
+              sessionStorage.setItem('session', JSON.stringify(res.Session));
+              this.readAllDeregs();
+            }
+          } else {
+            sessionStorage.removeItem('session');
+            this.authService.loggedIn.next(false);
+            this.snack.open(res.Session.Error, 'OK', {
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
+            this.router.navigateByUrl('login');
+          }
+        }, (error: HttpErrorResponse) => {
+          this.serverDownSnack();
+        });
+      } else {
+        this.readAllDeregs();
+      }
+    });
+  }
+
+  Decline(enrollment: any): void {
+    const confirm = this.dialog.open(GlobalConfirmComponent, {
+      disableClose: true,
+      data: { confirmation: 'Are you sure you want to decline this deregistration?' }
+    });
+
+    confirm.afterClosed().subscribe(approve => {
+      if (approve) {
+        const deregData = {
+          CourseID: enrollment.CourseID,
+          LearnerID: enrollment.LearnerID,
+          IsDeregistered: false,
+          // tslint:disable-next-line: no-non-null-assertion
+          Session: JSON.parse(sessionStorage.getItem('session')!)
+        };
+
+        this.learnerService.approveDeregistration(this.global.getServer(), deregData).subscribe(res => {
+          if (!res.Session.Error) {
+            if (res.Success) {
+              sessionStorage.setItem('session', JSON.stringify(res.Session));
+              this.snack.open('Successfully approved.', 'OK', {
+                verticalPosition: 'bottom',
+                horizontalPosition: 'center',
+                duration: 3000
+              });
+              this.readAllDeregs();
+            } else {
+              this.dialog.open(GlobalErrorComponent, {
+                disableClose: true,
+                data: {error: res.Error}
+              });
+              sessionStorage.setItem('session', JSON.stringify(res.Session));
+              this.readAllDeregs();
+            }
+          } else {
+            sessionStorage.removeItem('session');
+            this.authService.loggedIn.next(false);
+            this.snack.open(res.Session.Error, 'OK', {
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
+            this.router.navigateByUrl('login');
+          }
+        }, (error: HttpErrorResponse) => {
+          this.serverDownSnack();
+        });
+      } else {
+        this.readAllDeregs();
+      }
+    });
+  }
+
   filterTable(filter: any): void{
     this.dataSource.filter = filter;
-  }
-
-  applyFilters(): void {
-    if (this.filterGroup.get('CentreID')?.value === null && this.filterGroup.get('CourseID')?.value === null) {
-      this.readAllLearners();
-    } else {
-      // apply
-      const search = this.filterGroup.value;
-      const authFilter = {
-        ...search,
-        // tslint:disable-next-line: no-non-null-assertion
-        Session: JSON.parse(sessionStorage.getItem('session')!)
-      };
-
-      this.learnerService.applyFilters(this.global.getServer(), authFilter).subscribe(res => {
-        if (!res.Session.Error) {
-          sessionStorage.setItem('session', JSON.stringify(res.Session));
-          this.dataSource = new MatTableDataSource(res.Learners);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        } else {
-          sessionStorage.removeItem('session');
-          this.authService.loggedIn.next(false);
-          this.snack.open(res.Session.Error, 'OK', {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-            duration: 3000
-          });
-          this.router.navigateByUrl('login');
-        }
-      }, (error: HttpErrorResponse) => {
-        this.serverDownSnack();
-      });
-    }
-  }
-
-  clearFilters(): void {
-    this.filterGroup.reset();
-    this.readAllLearners();
   }
 
   serverDownSnack(): void {
