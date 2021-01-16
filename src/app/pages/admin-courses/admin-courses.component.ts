@@ -59,8 +59,7 @@ export class AdminCoursesComponent implements OnInit {
 
   addCourse(): void {
     const add = this.dialog.open(AddCourseComponent, {
-      disableClose: true,
-      width: '30%'
+      disableClose: true
     });
 
     add.afterClosed().subscribe(res => {

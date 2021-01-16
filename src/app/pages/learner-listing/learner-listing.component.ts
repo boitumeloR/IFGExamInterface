@@ -10,22 +10,11 @@ import { LearnerListingDataSource, LearnerListingItem } from './learner-listing-
   styleUrls: ['./learner-listing.component.scss']
 })
 export class LearnerListingComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<LearnerListingItem>;
-  dataSource!: LearnerListingDataSource;
-
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
 
   constructor() {}
-  ngOnInit() {
-    this.dataSource = new LearnerListingDataSource();
+  ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  ngAfterViewInit(): void {
   }
 }
