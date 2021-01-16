@@ -42,6 +42,8 @@ import { AddCourseComponent } from './modals/add-course/add-course.component';
 import { DeregistrationsComponent } from './pages/deregistrations/deregistrations.component';
 import { AssignMarkComponent } from './modals/assign-mark/assign-mark.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SubjectsComponent } from './pages/subjects/subjects.component';
+import { ViewSubjectCoursesComponent } from './modals/view-subject-courses/view-subject-courses.component';
 
 
 
@@ -63,7 +65,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     GlobalErrorComponent,
     AddCourseComponent,
     DeregistrationsComponent,
-    AssignMarkComponent
+    AssignMarkComponent,
+    SubjectsComponent,
+    ViewSubjectCoursesComponent
   ],
   imports: [
     BrowserModule,
