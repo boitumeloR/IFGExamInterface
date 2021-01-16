@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -39,10 +40,17 @@ export class DeregisterCourseComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if (res) {
-        this.courseService.deregisterCourse(this.global.getServer(), this.course).subscribe(result => {
+        const dereg = {
+          DeregisterReason: this.reasonGroup.get('reason')?.value,
+          CourseID: this.course.CourseID,
+          // tslint:disable-next-line: no-non-null-assertion
+          Session: JSON.parse(sessionStorage.getItem('session')!)
+        };
+
+        this.courseService.deregisterCourse(this.global.getServer(), dereg).subscribe(result => {
           if (!result.Session.Error) {
             if (result.Success) {
-              sessionStorage.setItem('session', JSON.parse(result.Session));
+              sessionStorage.setItem('session', JSON.stringify(result.Session));
               this.dialogRef.close();
               this.snack.open('Successfully deregistered.', 'OK', {
                 verticalPosition: 'bottom',
@@ -50,9 +58,12 @@ export class DeregisterCourseComponent implements OnInit {
                 duration: 3000
               });
             } else {
-              this.isError = true;
-              this.error = res.Error;
-              sessionStorage.setItem('session', JSON.parse(result.Session));
+              this.dialog.open(GlobalConfirmComponent, {
+                disableClose: true,
+                data: {error: res.Error}
+              });
+              sessionStorage.setItem('session', JSON.stringify(result.Session));
+              this.dialogRef.close();
             }
           } else {
             sessionStorage.removeItem('session');

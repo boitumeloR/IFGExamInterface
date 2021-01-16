@@ -61,6 +61,7 @@ export class AssignMarkComponent implements OnInit {
   assignMark(): void {
     const mark = {
       ...this.markGroup.value,
+      CourseID: this.course.CourseID,
       // tslint:disable-next-line: no-non-null-assertion
       Session: JSON.parse(sessionStorage.getItem('session')!)
     };
