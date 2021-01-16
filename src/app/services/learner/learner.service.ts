@@ -19,4 +19,20 @@ export class LearnerService {
     const session = JSON.parse(sessionStorage.getItem('session')!);
     return this.http.post<any>(`${server}/Learner/GetAllLearners`, session, this.httpOptions);
   }
+
+  applyFilters(server: string, filterData: any): Observable<any> {
+    return this.http.post<any>(`${server}/Learner/ApplyFilters`, filterData, this.httpOptions);
+  }
+
+  getLearnerCentres(server: string): Observable<any> {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    return this.http.get<any>(`${server}/Learner/GetLearnerCentres`, session);
+  }
+
+  getLearnerCourses(server: string): Observable<any> {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    return this.http.get<any>(`${server}/Learner/GetLearnerCentres`, session);
+  }
 }
