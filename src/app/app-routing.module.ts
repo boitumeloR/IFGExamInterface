@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { DeregistrationsComponent } from './pages/deregistrations/deregistrations.component';
 import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses.component';
 import { LearnerListingComponent } from './pages/learner-listing/learner-listing.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -22,6 +23,12 @@ const routes: Routes = [
   {
     path: 'admin-courses',
     component: AdminCoursesComponent,
+    canActivate: [AuthGuard],
+    data: {roleID: 1}
+  },
+  {
+    path: 'deregistrations',
+    component: DeregistrationsComponent,
     canActivate: [AuthGuard],
     data: {roleID: 1}
   },
