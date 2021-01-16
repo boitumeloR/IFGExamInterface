@@ -1,1 +1,39 @@
-<p>assign-mark works!</p>
+<h2 mat-dialog-title>Assign Mark ({{course.CourseName}})</h2>
+<form [formGroup]="markGroup">
+    <mat-dialog-content class="mat-typography">
+        <div class="container">
+            <mat-form-field class="example-full-width" appearance = "outline">
+                <mat-label>Learner</mat-label>
+                <input type="text"
+                       placeholder="Pick one"
+                       aria-label="Number"
+                       matInput
+                       formControlName = "LearnerID"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of learners" [value]="option.LearnerID">
+                    {{option.LearnerName}} {{option.LearnerSurname}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+    
+            <mat-form-field appearance="outline">
+                <mat-label>Course Mark</mat-label>
+                <input type="number"
+                       placeholder="Pick one"
+                       aria-label="Number"
+                       matInput
+                       formControlName = "Mark"
+                       >
+                <mat-hint align="end">The centre the course will be offered at</mat-hint>
+              </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button (click)="Cancel()">Cancel</button>
+        <button mat-raised-button type="submit" color="primary" cdkFocusInitial (click)="assignMark()"
+        [disabled] = "markGroup.valid ? false: true"
+        >Assign Mark</button>
+    </mat-dialog-actions>
+</form>

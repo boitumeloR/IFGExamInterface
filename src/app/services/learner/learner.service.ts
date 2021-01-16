@@ -45,4 +45,8 @@ export class LearnerService {
     const session = JSON.parse(sessionStorage.getItem('session')!);
     return this.http.get<any>(`${server}/Learner/GetLearnerCourses`, session);
   }
+
+  getLearnersEnrolled(server: string, learnerData: any): Observable<any> {
+    return this.http.post<any>(`${server}/Learner/GetCourseLearners`, learnerData, this.httpOptions);
+  }
 }
