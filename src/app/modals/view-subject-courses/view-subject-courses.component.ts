@@ -16,6 +16,7 @@ import { GlobalService } from 'src/app/services/global/global.service';
 export class ViewSubjectCoursesComponent implements OnInit {
 
   subject: any = this.data.subject;
+  courses: any[] = [];
   courses$: Observable<any> = this.courseService.getSubjectCourses(this.global.getServer(), this.subject.SubjectID);
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ViewSubjectCoursesComponent>,
               private courseService: CourseService, private global: GlobalService,
