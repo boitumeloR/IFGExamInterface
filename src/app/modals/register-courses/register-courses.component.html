@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Course Registration</h2>
+    <mat-dialog-content class="mat-typography">
+    <ng-container *ngIf="courses.length > 0; else elseTemplate">
+        <div class="container">
+            <mat-chip *ngIf="isError">{{error}}</mat-chip>
+            <mat-card class="example-card" *ngFor="let item of courses">
+                <mat-card-header>
+                    <mat-card-title>{{item.CourseName}}
+                    </mat-card-title>
+                    <mat-card-subtitle>{{item.CourseSubject}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{item.CourseDescription}}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <div class="actions">
+                            <ng-container *ngIf="item.CourseStatus === false; else elseTemplate">
+                                <button mat-raised-button color="accent" (click)="addCourse(item)"
+                                [disabled] = "courseReg.length >= maxCourses"
+                                >Add Course</button>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <button mat-raised-button color="accent" (click)="removeCourse(item)">Remove Course</button>
+                            </ng-template>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <div class="empty-container">
+            <div class="empty">
+                <img src="assets/images/blank.svg" alt="no courses">
+                <h3>There are no courses available for you at the moment.</h3>
+            </div>
+        </div>
+    </ng-template>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="registerCourses()"
+        [disabled] = "courseReg.length > 0 ? false: true"
+        >Register for selected courses</button>
+    </mat-dialog-actions>

@@ -28,7 +28,18 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { RegisterCoursesComponent } from './modals/register-courses/register-courses.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { DeregisterCourseComponent } from './modals/deregister-course/deregister-course.component';
+import { GlobalConfirmComponent } from './modals/global-confirm/global-confirm.component';
+import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.component';
+import { UpdateCourseComponent } from './modals/update-course/update-course.component';
+import { GlobalErrorComponent } from './modals/global-error/global-error.component';
+import { AddCourseComponent } from './modals/add-course/add-course.component';
+
 
 
 @NgModule({
@@ -39,7 +50,14 @@ import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses
     LoginComponent,
     RegisterUserComponent,
     AdminHomeComponent,
-    LearnerCoursesComponent
+    LearnerCoursesComponent,
+    RegisterCoursesComponent,
+    DeregisterCourseComponent,
+    GlobalConfirmComponent,
+    AdminCoursesComponent,
+    UpdateCourseComponent,
+    GlobalErrorComponent,
+    AddCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +82,11 @@ import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses
     MatGridListModule,
     MatMenuModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

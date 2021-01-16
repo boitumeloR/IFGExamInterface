@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .mat-card { 
+        width: 90%;
+        margin-left: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+.empty-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    .empty {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 200px;
+        }
+    }
+}

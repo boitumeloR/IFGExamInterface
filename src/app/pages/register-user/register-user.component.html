@@ -75,7 +75,7 @@
                         <mat-form-field appearance="outline">
                           <mat-label>Grade</mat-label>
                           <mat-select formControlName="LearnerGradeID">
-                            <mat-option *ngFor="let item of (grades$ | async)" [value]="item.LearnerGradeID"> Grade {{item.LearnerGreadeLevel}}</mat-option>
+                            <mat-option *ngFor="let item of (grades$ | async)" [value]="item.LearnerGradeID"> Grade {{item.LearnerGradeLevel}}</mat-option>
                           </mat-select>
                           <mat-hint align="end">The Grade the learner is currently in</mat-hint>
                         </mat-form-field>
