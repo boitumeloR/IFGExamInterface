@@ -13,6 +13,7 @@ import { UpdateCourseComponent } from 'src/app/modals/update-course/update-cours
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { GlobalService } from 'src/app/services/global/global.service';
+import { LearnerService } from 'src/app/services/learner/learner.service';
 
 @Component({
   selector: 'app-learner-listing',
@@ -23,24 +24,24 @@ export class LearnerListingComponent implements AfterViewInit, OnInit {
 
   dataSource =  new MatTableDataSource<any>();
   filter = '';
-  displayedColumns: string[] = ['courseID', 'courseName', 'courseSubject', 'courseDescription', 'actions'];
+  displayedColumns: string[] = [ 'learnerName', 'learnerSurname', 'emailAddress', 'ID', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  constructor(private global: GlobalService, private courseService: CourseService,
+  constructor(private global: GlobalService, private learnerService: LearnerService,
               private router: Router, private snack: MatSnackBar, private dialog: MatDialog,
               private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.readCourses();
+    this.readAllLearners();
   }
 
   ngAfterViewInit(): void {
   }
 
-  readCourses(): void {
-    this.courseService.getAdminCourses(this.global.getServer()).subscribe(res => {
+  readAllLearners(): void {
+    this.learnerService.getAllLearners(this.global.getServer()).subscribe(res => {
       if (!res.Session.Error) {
         sessionStorage.setItem('session', JSON.stringify(res.Session));
-        this.dataSource = new MatTableDataSource(res.Courses);
+        this.dataSource = new MatTableDataSource(res.Learners);
         this.dataSource.paginator = this.paginator;
       } else {
         sessionStorage.removeItem('session');
@@ -67,124 +68,7 @@ export class LearnerListingComponent implements AfterViewInit, OnInit {
     });
 
     add.afterClosed().subscribe(res => {
-      this.readCourses();
-    });
-  }
-
-  updateCourse(course: any): void {
-    const courseSession = {
-      ...course,
-      // tslint:disable-next-line: no-non-null-assertion
-      Session: JSON.parse(sessionStorage.getItem('session')!)
-    };
-    this.courseService.checkModification(this.global.getServer(), courseSession).subscribe(res => {
-      if (!res.Session.Error) {
-        if (res.CanModify) {
-          sessionStorage.setItem('session', JSON.stringify(res.Session));
-          // update course
-
-          const update = this.dialog.open(UpdateCourseComponent, {
-            disableClose: true,
-            data: {course}
-          });
-
-          update.afterClosed().subscribe(result => {
-            this.readCourses();
-          });
-
-        } else {
-          sessionStorage.setItem('session', JSON.stringify(res.Session));
-          this.dialog.open(GlobalErrorComponent, {
-            disableClose: false,
-            data: {error: 'This course cannot be updated as it has learners registered.'}
-          });
-        }
-      } else {
-        sessionStorage.removeItem('session');
-        this.authService.loggedIn.next(false);
-        this.snack.open(res.Session.Error, 'OK', {
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center',
-          duration: 3000
-        });
-        this.router.navigateByUrl('login');
-      }
-    });
-  }
-
-  deleteCourse(course: any): void {
-    const courseSession = {
-      ...course,
-      // tslint:disable-next-line: no-non-null-assertion
-      Session: JSON.parse(sessionStorage.getItem('session')!)
-    };
-    this.courseService.checkModification(this.global.getServer(), courseSession).subscribe(res => {
-      if (!res.Session.Error) {
-        if (res.CanModify) {
-          sessionStorage.setItem('session', JSON.stringify(res.Session));
-          // delete course
-          const confirm = this.dialog.open(GlobalConfirmComponent, {
-            disableClose: true,
-            data: {confirmation: 'Are you sure you want to delete this course?'}
-          });
-
-          confirm.afterClosed().subscribe(result => {
-            if (result) {
-              // delete
-              const delCourse = {
-                ...course,
-                // tslint:disable-next-line: no-non-null-assertion
-                Session: JSON.parse(sessionStorage.getItem('session')!)
-              };
-              this.courseService.deleteCourse(this.global.getServer(), delCourse).subscribe(del => {
-                if (!del.Session.Error) {
-                  sessionStorage.setItem('session', JSON.stringify(del.Session));
-                  if (del.Success) {
-                    this.readCourses();
-                    this.snack.open('Successfully deleted course.', 'OK', {
-                      verticalPosition: 'bottom',
-                      horizontalPosition: 'center',
-                      duration: 3000
-                    });
-                  } else {
-                    this.dialog.open(GlobalErrorComponent, {
-                      disableClose: true,
-                      data: {error: del.Error}
-                    });
-                    sessionStorage.setItem('session', JSON.stringify(del.Session));
-                  }
-                } else {
-                  sessionStorage.removeItem('session');
-                  this.authService.loggedIn.next(false);
-                  this.snack.open(res.Session.Error, 'OK', {
-                    verticalPosition: 'bottom',
-                    horizontalPosition: 'center',
-                    duration: 3000
-                  });
-                  this.router.navigateByUrl('login');
-                }
-              });
-            } else {
-              this.readCourses();
-            }
-          });
-        } else {
-          sessionStorage.setItem('session', JSON.stringify(res.Session));
-          this.dialog.open(GlobalErrorComponent, {
-            disableClose: false,
-            data: {error: 'This course cannot be deleted as it has learners registered.'}
-          });
-        }
-      } else {
-        sessionStorage.removeItem('session');
-        this.authService.loggedIn.next(false);
-        this.snack.open(res.Session.Error, 'OK', {
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center',
-          duration: 3000
-        });
-        this.router.navigateByUrl('login');
-      }
+      this.readAllLearners();
     });
   }
 
