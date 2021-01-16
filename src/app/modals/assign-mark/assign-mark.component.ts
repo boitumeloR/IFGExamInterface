@@ -21,7 +21,8 @@ export class AssignMarkComponent implements OnInit {
 
   markGroup: FormGroup = this.fb.group({
     LearnerID: [null, Validators.required],
-    LearnerMark: [null, Validators.compose([Validators.required, Validators.max(100)])]
+    LearnerMark: [null, Validators.compose([Validators.required, Validators.max(100)])],
+    CourseComments: [null, Validators.compose([Validators.required, Validators.maxLength(50)])]
   });
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AssignMarkComponent>,
               private courseService: CourseService, private global: GlobalService,

@@ -9,7 +9,14 @@
   right: 15px;
   bottom: 15px;
 }
-
+.graph {
+  width: 65%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .more-button {
   position: absolute;
   top: 5px;

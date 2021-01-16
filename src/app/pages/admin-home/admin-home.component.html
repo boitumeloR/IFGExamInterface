@@ -1,7 +1,7 @@
 <div class="grid-container">
   <h1>Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -16,15 +16,15 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div [hidden]="!performanceChart">
+          <div [hidden]="performanceChart ? false: true">
             <div class = "graph">
-              <canvas id="totalChart" width="100%" >{{performanceChart}}</canvas>  
+              <canvas id="performanceChart" >{{performanceChart}}</canvas>  
             </div>
           </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <!-- <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -42,6 +42,6 @@
           <div>Card Content Here</div>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
   </mat-grid-list>
 </div>
