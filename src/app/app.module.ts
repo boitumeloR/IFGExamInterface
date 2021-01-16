@@ -39,6 +39,7 @@ import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.compo
 import { UpdateCourseComponent } from './modals/update-course/update-course.component';
 import { GlobalErrorComponent } from './modals/global-error/global-error.component';
 import { AddCourseComponent } from './modals/add-course/add-course.component';
+import { DeregistrationsComponent } from './pages/deregistrations/deregistrations.component';
 
 
 
@@ -57,7 +58,8 @@ import { AddCourseComponent } from './modals/add-course/add-course.component';
     AdminCoursesComponent,
     UpdateCourseComponent,
     GlobalErrorComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    DeregistrationsComponent
   ],
   imports: [
     BrowserModule,
