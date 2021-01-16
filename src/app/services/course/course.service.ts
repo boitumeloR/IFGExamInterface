@@ -13,6 +13,7 @@ export interface Course {
   CourseGradeID: number;
   CourseMark: number;
   CourseSubject: string;
+  CourseComments: string;
   CourseGradeLevel: number;
 }
 
