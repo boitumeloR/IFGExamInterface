@@ -1,11 +1,10 @@
 <h2 mat-dialog-title>Course Deregistration</h2>
     <form [formGroup]="reasonGroup">
         <mat-dialog-content class="mat-typography">
-            <mat-chip *ngIf="isError">{{error}}</mat-chip>
             <h3>Course Name: {{course.CourseName}}</h3>
             <mat-form-field appearance="outline">
                 <mat-label>Deregister Reason</mat-label>
-                <textarea matInput placeholder="Your deregistration reason..."></textarea>
+                <textarea matInput placeholder="Your deregistration reason..." formControlName= "reason"></textarea>
                 <mat-hint>Your deregistration reason</mat-hint>
               </mat-form-field>
             </mat-dialog-content>

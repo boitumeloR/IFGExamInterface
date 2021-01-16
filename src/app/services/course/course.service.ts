@@ -12,7 +12,9 @@ export interface Course {
   RegistrationStatusName: string;
   CourseGradeID: number;
   CourseMark: number;
+  LessonFrequency: number;
   CourseSubject: string;
+  CourseComments: string;
   CourseGradeLevel: number;
 }
 
@@ -44,6 +46,16 @@ export class CourseService {
     return this.http.post<AuthCourse>(`${server}/Course/AdminCourses`, session, this.httpOptions);
   }
 
+  getLearnerSubjects(server: string): Observable<any> {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    return this.http.post<any>(`${server}/Course/GetLearnerSubjects`, session, this.httpOptions);
+  }
+
+  getSubjectCourses(server: string, subjectID: number): Observable<any> {
+    return this.http.get<any>(`${server}/Course/GetSubjectCourses?subjectID=${subjectID}`);
+  }
+
   availableCourses(server: string): Observable<any> {
     // tslint:disable-next-line: no-non-null-assertion
     const session = JSON.parse(sessionStorage.getItem('session')!);
@@ -55,12 +67,7 @@ export class CourseService {
   }
 
   deregisterCourse(server: string, course: any): Observable<any> {
-    const dereg = {
-      ...course,
-      // tslint:disable-next-line: no-non-null-assertion
-      Session: JSON.parse(sessionStorage.getItem('session')!)
-    };
-    return this.http.post<any>(`${server}/Course/RegisterCourses`, dereg, this.httpOptions);
+    return this.http.post<any>(`${server}/Course/DeregisterCourse`, course, this.httpOptions);
   }
 
   addCourse(server: string, course: any): Observable<any> {

@@ -24,7 +24,8 @@ export class AddCourseComponent implements OnInit {
     CourseDescription: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
     CourseSubjectID: [0, Validators.required],
     CourseGradeID: [0, Validators.required],
-    CourseCentreID: [0, Validators.required]
+    CourseCentreID: [0, Validators.required],
+    LessonFrequency: [0, Validators.compose([Validators.required, Validators.max(4)])]
   });
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AddCourseComponent>,
               private courseService: CourseService, private global: GlobalService,
@@ -37,7 +38,8 @@ export class AddCourseComponent implements OnInit {
       CourseDescription: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
       CourseSubjectID: [0, Validators.required],
       CourseGradeID: [0, Validators.required],
-      CourseCentreID: [0, Validators.required]
+      CourseCentreID: [0, Validators.required],
+      LessonFrequency: [0, Validators.compose([Validators.required, Validators.max(4)])]
     });
   }
 

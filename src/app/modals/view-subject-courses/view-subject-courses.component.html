@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Courses for {{subject.SubjectName}}</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="container">
+            <mat-list role="list">
+                <mat-list-item role="listitem" *ngFor="let item of (courses$ | async)">Course Name: {{item.CourseName}}</mat-list-item>
+            </mat-list>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button (click)="Cancel()">Close</button>
+    </mat-dialog-actions>
+

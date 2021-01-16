@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
         this.loggedIn$ = this.authService.isLoggedIn;
         if (res.UserRoleID === 1) {
-          this.router.navigateByUrl('admin-courses');
+          this.router.navigateByUrl('admin-home');
         } else {
           this.router.navigateByUrl('learner-courses');
         }

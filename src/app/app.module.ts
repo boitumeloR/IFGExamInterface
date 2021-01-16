@@ -39,6 +39,12 @@ import { AdminCoursesComponent } from './pages/admin-courses/admin-courses.compo
 import { UpdateCourseComponent } from './modals/update-course/update-course.component';
 import { GlobalErrorComponent } from './modals/global-error/global-error.component';
 import { AddCourseComponent } from './modals/add-course/add-course.component';
+import { DeregistrationsComponent } from './pages/deregistrations/deregistrations.component';
+import { AssignMarkComponent } from './modals/assign-mark/assign-mark.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SubjectsComponent } from './pages/subjects/subjects.component';
+import { ViewSubjectCoursesComponent } from './modals/view-subject-courses/view-subject-courses.component';
+
 
 
 
@@ -57,7 +63,11 @@ import { AddCourseComponent } from './modals/add-course/add-course.component';
     AdminCoursesComponent,
     UpdateCourseComponent,
     GlobalErrorComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    DeregistrationsComponent,
+    AssignMarkComponent,
+    SubjectsComponent,
+    ViewSubjectCoursesComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +96,8 @@ import { AddCourseComponent } from './modals/add-course/add-course.component';
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatSortModule
+    MatSortModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

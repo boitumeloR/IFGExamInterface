@@ -2,7 +2,7 @@
 <div class="example-container">
   <mat-form-field hintLabel="Max 100 characters" appearance="outline">
     <mat-label>Keyword Filter</mat-label>
-    <input matInput #input maxlength="50" placeholder="Ex. Kruger National Park" [ngModel]="filter" (ngModelChange)="filterTable(input.value)">
+    <input matInput #input maxlength="50" placeholder="Ex. Intro to Math" [ngModel]="filter" (ngModelChange)="filterTable(input.value)">
     <mat-hint>&nbsp; {{input.value?.length || 0}}/50</mat-hint>
   </mat-form-field>
 
@@ -44,6 +44,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
+                  <button mat-menu-item (click)="assignMark(element)">Assign A Mark</button>
                 <button mat-menu-item (click)="updateCourse(element)">Update Course</button>
                 <button mat-menu-item (click)="deleteCourse(element)">Delete Course</button>
                 </mat-menu>

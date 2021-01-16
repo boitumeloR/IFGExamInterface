@@ -13,6 +13,7 @@
       <ng-container *ngIf="session.UserRoleID === 2; else elseTemplate">
         <mat-nav-list>
           <a mat-list-item [routerLink]="[ '/learner-courses' ]">My Courses</a>
+          <a mat-list-item [routerLink]="[ '/subjects' ]">Subjects on Offer</a>
           <a mat-list-item (click)="logOut(drawer)">Log Out</a>
         </mat-nav-list>
       </ng-container>
@@ -21,6 +22,7 @@
           <a mat-list-item [routerLink]="[ '/admin-home' ]">Dashboard</a>
           <a mat-list-item [routerLink]="[ '/admin-courses' ]">Courses</a>
           <a mat-list-item [routerLink]="[ '/learner-listings' ]">Learner Listings</a>
+          <a mat-list-item [routerLink]="[ '/deregistrations' ]">Deregistrations</a>
           <a mat-list-item (click)="logOut(drawer)">Log Out</a>
         </mat-nav-list>
       </ng-template>

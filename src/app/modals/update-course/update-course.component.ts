@@ -26,7 +26,8 @@ export class UpdateCourseComponent implements OnInit {
     CourseDescription: [this.courseData.CourseDescription, Validators.compose([Validators.required, Validators.maxLength(150)])],
     CourseSubjectID: [this.courseData.CourseSubjectID, Validators.required],
     CourseGradeID: [this.courseData.CourseGradeID, Validators.required],
-    CourseCentreID: [this.courseData.CourseCentreID, Validators.required]
+    CourseCentreID: [this.courseData.CourseCentreID, Validators.required],
+    LessonFrequency: [this.courseData.LessonFrequency, Validators.compose([Validators.required, Validators.max(4)])]
   });
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AddCourseComponent>,
               private courseService: CourseService, private global: GlobalService,

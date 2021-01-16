@@ -21,7 +21,9 @@
                         <mat-list role="list">
                             <mat-list-item role="listitem">Learner Grade: {{item.CourseGradeLevel}}</mat-list-item>
                             <mat-list-item role="listitem">Date Registered: {{item.DateRegistered | date: 'mediumDate'}}</mat-list-item>
+                            <mat-list-item role="listitem">Lessons per Week: {{item.LessonFrequency}}</mat-list-item>
                             <mat-list-item role="listitem">Course Mark: {{item.CourseMark ? item.CourseMark : 'Not Assigned'}}</mat-list-item>
+                            <mat-list-item role="listitem">Course Comments: {{item.CourseComments ? item.CourseComments : 'Not Assigned'}}</mat-list-item>
                             <mat-list-item role="listitem">Course Status: {{item.RegistrationStatusName}}</mat-list-item>
                         </mat-list>
                     </div>

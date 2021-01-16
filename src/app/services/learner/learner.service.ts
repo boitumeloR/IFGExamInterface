@@ -20,8 +20,18 @@ export class LearnerService {
     return this.http.post<any>(`${server}/Learner/GetAllLearners`, session, this.httpOptions);
   }
 
+  getAllDeregistrations(server: string): Observable<any> {
+    // tslint:disable-next-line: no-non-null-assertion
+    const session = JSON.parse(sessionStorage.getItem('session')!);
+    return this.http.post<any>(`${server}/Learner/GetDeregistrations`, session, this.httpOptions);
+  }
+
   applyFilters(server: string, filterData: any): Observable<any> {
     return this.http.post<any>(`${server}/Learner/ApplyFilters`, filterData, this.httpOptions);
+  }
+
+  approveDeregistration(server: string, deregData: any): Observable<any> {
+    return this.http.post<any>(`${server}/Learner/ApproveDeregistration`, deregData, this.httpOptions);
   }
 
   getLearnerCentres(server: string): Observable<any> {
@@ -34,5 +44,13 @@ export class LearnerService {
     // tslint:disable-next-line: no-non-null-assertion
     const session = JSON.parse(sessionStorage.getItem('session')!);
     return this.http.get<any>(`${server}/Learner/GetLearnerCourses`, session);
+  }
+
+  getLearnersEnrolled(server: string, learnerData: any): Observable<any> {
+    return this.http.post<any>(`${server}/Learner/GetCourseLearners`, learnerData, this.httpOptions);
+  }
+
+  assignMark(server: string, learnerData: any): Observable<any> {
+    return this.http.post<any>(`${server}/Learner/AssignMark`, learnerData, this.httpOptions);
   }
 }
