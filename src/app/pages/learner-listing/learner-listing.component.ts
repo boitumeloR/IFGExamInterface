@@ -34,6 +34,7 @@ export class LearnerListingComponent implements AfterViewInit, OnInit {
   });
   displayedColumns: string[] = [ 'learnerName', 'learnerSurname', 'emailAddress', 'ID', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private global: GlobalService, private learnerService: LearnerService,
               private router: Router, private snack: MatSnackBar, private dialog: MatDialog,
               private authService: AuthService, private fb: FormBuilder) { }
@@ -51,6 +52,7 @@ export class LearnerListingComponent implements AfterViewInit, OnInit {
         sessionStorage.setItem('session', JSON.stringify(res.Session));
         this.dataSource = new MatTableDataSource(res.Learners);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       } else {
         sessionStorage.removeItem('session');
         this.authService.loggedIn.next(false);
@@ -87,6 +89,7 @@ export class LearnerListingComponent implements AfterViewInit, OnInit {
           sessionStorage.setItem('session', JSON.stringify(res.Session));
           this.dataSource = new MatTableDataSource(res.Learners);
           this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         } else {
           sessionStorage.removeItem('session');
           this.authService.loggedIn.next(false);

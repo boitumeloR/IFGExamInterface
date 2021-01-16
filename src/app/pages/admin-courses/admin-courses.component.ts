@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AddCourseComponent } from 'src/app/modals/add-course/add-course.component';
@@ -18,12 +19,13 @@ import { GlobalService } from 'src/app/services/global/global.service';
   templateUrl: './admin-courses.component.html',
   styleUrls: ['./admin-courses.component.scss']
 })
-export class AdminCoursesComponent implements OnInit {
+export class AdminCoursesComponent implements OnInit, AfterViewInit {
 
   dataSource =  new MatTableDataSource<any>();
   filter = '';
-  displayedColumns: string[] = ['courseID', 'courseName', 'courseSubject', 'courseDescription', 'actions'];
+  displayedColumns: string[] = ['CourseID', 'CourseName', 'CourseSubject', 'CourseDescription', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private global: GlobalService, private courseService: CourseService,
               private router: Router, private snack: MatSnackBar, private dialog: MatDialog,
               private authService: AuthService) { }
@@ -32,12 +34,17 @@ export class AdminCoursesComponent implements OnInit {
     this.readCourses();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
   readCourses(): void {
     this.courseService.getAdminCourses(this.global.getServer()).subscribe(res => {
       if (!res.Session.Error) {
         sessionStorage.setItem('session', JSON.stringify(res.Session));
         this.dataSource = new MatTableDataSource(res.Courses);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       } else {
         sessionStorage.removeItem('session');
         this.authService.loggedIn.next(false);

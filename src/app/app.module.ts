@@ -85,7 +85,8 @@ import { AddCourseComponent } from './modals/add-course/add-course.component';
     MatSelectModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
