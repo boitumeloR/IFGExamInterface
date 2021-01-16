@@ -33,6 +33,6 @@ export class LearnerService {
   getLearnerCourses(server: string): Observable<any> {
     // tslint:disable-next-line: no-non-null-assertion
     const session = JSON.parse(sessionStorage.getItem('session')!);
-    return this.http.get<any>(`${server}/Learner/GetLearnerCentres`, session);
+    return this.http.get<any>(`${server}/Learner/GetLearnerCourses`, session);
   }
 }
