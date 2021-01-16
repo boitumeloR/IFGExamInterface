@@ -21,8 +21,6 @@ import { LearnerService } from 'src/app/services/learner/learner.service';
 })
 export class DeregistrationsComponent implements OnInit {
 
-  centres$: Observable<any> = this.learnerService.getLearnerCentres(this.global.getServer());
-  courses$: Observable<any> = this.learnerService.getLearnerCourses(this.global.getServer());
   dataSource =  new MatTableDataSource<any>();
   filter = '';
   filterGroup: FormGroup = this.fb.group({
