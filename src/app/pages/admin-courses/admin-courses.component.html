@@ -44,6 +44,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
+                  <button mat-menu-item (click)="asssignMark(element)">Assign A Mark</button>
                 <button mat-menu-item (click)="updateCourse(element)">Update Course</button>
                 <button mat-menu-item (click)="deleteCourse(element)">Delete Course</button>
                 </mat-menu>

@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AddCourseComponent } from 'src/app/modals/add-course/add-course.component';
+import { AssignMarkComponent } from 'src/app/modals/assign-mark/assign-mark.component';
 import { GlobalConfirmComponent } from 'src/app/modals/global-confirm/global-confirm.component';
 import { GlobalErrorComponent } from 'src/app/modals/global-error/global-error.component';
 import { UpdateCourseComponent } from 'src/app/modals/update-course/update-course.component';
@@ -189,6 +190,15 @@ export class AdminCoursesComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('login');
       }
     });
+  }
+
+  assignMark(course: any): void {
+    const mark = this.dialog.open(AssignMarkComponent, {
+      disableClose: true,
+      data: {course}
+    });
+
+    mark.afterClosed().subscribe(res => this.readCourses());
   }
 
   serverDownSnack(): void {
