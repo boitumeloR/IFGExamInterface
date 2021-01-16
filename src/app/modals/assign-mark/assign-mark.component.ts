@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { LearnerService } from 'src/app/services/learner/learner.service';
+import { GlobalErrorComponent } from '../global-error/global-error.component';
 
 @Component({
   selector: 'app-assign-mark',
@@ -20,7 +21,7 @@ export class AssignMarkComponent implements OnInit {
 
   markGroup: FormGroup = this.fb.group({
     LearnerID: [null, Validators.required],
-    Mark: [null, Validators.compose([Validators.required, Validators.max(100)])]
+    LearnerMark: [null, Validators.compose([Validators.required, Validators.max(100)])]
   });
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AssignMarkComponent>,
               private courseService: CourseService, private global: GlobalService,
@@ -58,7 +59,41 @@ export class AssignMarkComponent implements OnInit {
   }
 
   assignMark(): void {
-    //
+    const mark = {
+      ...this.markGroup.value,
+      // tslint:disable-next-line: no-non-null-assertion
+      Session: JSON.parse(sessionStorage.getItem('session')!)
+    };
+
+    this.learnerService.assignMark(this.global.getServer(), mark).subscribe(res => {
+      if (!res.Session.Error) {
+        if (res.Success) {
+          sessionStorage.setItem('session', JSON.stringify(res.Session));
+          this.dialogRef.close();
+          this.snack.open('Successfully assigned mark.', 'OK', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+        } else {
+          this.dialog.open(GlobalErrorComponent, {
+            disableClose: true,
+            data: {error: res.Error}
+          });
+          sessionStorage.setItem('session', JSON.stringify(res.Session));
+          this.dialogRef.close();
+        }
+      } else {
+        sessionStorage.removeItem('session');
+        this.authService.loggedIn.next(false);
+        this.snack.open(res.Session.Error, 'OK', {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
+        this.router.navigateByUrl('login');
+      }
+    });
   }
 
 }

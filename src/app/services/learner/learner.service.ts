@@ -49,4 +49,8 @@ export class LearnerService {
   getLearnersEnrolled(server: string, learnerData: any): Observable<any> {
     return this.http.post<any>(`${server}/Learner/GetCourseLearners`, learnerData, this.httpOptions);
   }
+
+  assignMark(server: string, learnerData: any): Observable<any> {
+    return this.http.post<any>(`${server}/Learner/AssignMark`, learnerData, this.httpOptions);
+  }
 }
