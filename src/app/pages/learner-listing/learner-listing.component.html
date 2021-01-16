@@ -1,1 +1,56 @@
-<p>works</p>
+<h1>Learners</h1>
+<div class="example-container">
+  <mat-form-field hintLabel="Max 100 characters" appearance="outline">
+    <mat-label>Search Learner</mat-label>
+    <input matInput #input maxlength="50" placeholder="Ex. Kyle" [ngModel]="filter" (ngModelChange)="filterTable(input.value)">
+    <mat-hint>&nbsp; {{input.value?.length || 0}}/50</mat-hint>
+  </mat-form-field>
+
+</div>
+  <div class="mat-elevation-z8 table">
+    <table mat-table [dataSource]="dataSource">
+        <!-- ID Column -->
+        <ng-container matColumnDef="courseID">
+        <th mat-header-cell *matHeaderCellDef> Course ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.CourseID}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="courseName">
+            <th mat-header-cell *matHeaderCellDef> Course Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.CourseName}} </td>
+        </ng-container>
+
+        <!-- Subject  Column -->
+        <ng-container matColumnDef="courseSubject">
+            <th mat-header-cell *matHeaderCellDef> Subject </th>
+            <td mat-cell *matCellDef="let element"> {{element.CourseSubject}} </td>
+        </ng-container>
+
+        <!-- Description  Column -->
+        <ng-container matColumnDef="courseDescription">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element"> {{element.CourseDescription}} </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="updateCourse(element)">Update Course</button>
+                <button mat-menu-item (click)="deleteCourse(element)">Delete Course</button>
+                </mat-menu>
+            </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 8, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
