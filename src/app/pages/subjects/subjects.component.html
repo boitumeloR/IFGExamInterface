@@ -1,4 +1,4 @@
-<h1>Courses</h1>
+<h1>Subjects</h1>
 <div class="example-container">
   <mat-form-field hintLabel="Max 100 characters" appearance="outline">
     <mat-label>Keyword Filter</mat-label>
@@ -24,7 +24,9 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element"> 
-                <button mat-button class="more-button" aria-label="Toggle menu">
+                <button mat-button class="more-button" aria-label="Toggle menu"
+                (click)="viewCourses(element)"
+                >
                     View Courses on offer
                 </button>
             </td>

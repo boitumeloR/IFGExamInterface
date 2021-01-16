@@ -8,6 +8,7 @@ import { LearnerCoursesComponent } from './pages/learner-courses/learner-courses
 import { LearnerListingComponent } from './pages/learner-listing/learner-listing.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterUserComponent } from './pages/register-user/register-user.component';
+import { SubjectsComponent } from './pages/subjects/subjects.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,12 @@ const routes: Routes = [
   {
     path: 'learner-courses',
     component: LearnerCoursesComponent,
+    canActivate: [AuthGuard],
+    data: {roleID: 2}
+  },
+  {
+    path: 'subjects',
+    component: SubjectsComponent,
     canActivate: [AuthGuard],
     data: {roleID: 2}
   },

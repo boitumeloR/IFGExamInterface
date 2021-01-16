@@ -12,6 +12,7 @@ export interface Course {
   RegistrationStatusName: string;
   CourseGradeID: number;
   CourseMark: number;
+  LessonFrequency: number;
   CourseSubject: string;
   CourseComments: string;
   CourseGradeLevel: number;
