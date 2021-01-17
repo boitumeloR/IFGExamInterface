@@ -62,6 +62,7 @@ export class RegisterCoursesComponent implements OnInit {
       this.courseReg.push(course.CourseID);
       const mainIndex = this.courses.findIndex(zz => zz.CourseID === course.CourseID);
       this.courses[mainIndex].CourseStatus = true;
+      this.maxCourses--;
   }
 
   removeCourse(course: any): void {
@@ -69,6 +70,7 @@ export class RegisterCoursesComponent implements OnInit {
     this.courseReg.splice(index, 1);
     const mainIndex = this.courses.findIndex(zz => zz.CourseID === course.CourseID);
     this.courses[mainIndex].CourseStatus = false;
+    this.maxCourses++;
   }
 
   registerCourses(): void {
